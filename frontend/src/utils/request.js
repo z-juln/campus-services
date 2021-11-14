@@ -20,14 +20,14 @@ require.interceptors.request.use(
 
 require.interceptors.response.use(
   response => {
-    const {success, result, msg} = response.data
+    const {success, msg} = response.data
     if(response.status === 401) {
       Toast('请先登录')
       return Promise.reject(msg)
     }
     if(response.status !== 200) return Promise.reject('请求错误')
     if(!success) return Promise.reject(msg)
-    return Promise.resolve(result)
+    return Promise.resolve(response.data)
   },
   error => Toast('服务器连接不上，怀疑您的网络开了小差')
 )
