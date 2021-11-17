@@ -2,6 +2,8 @@
 
 'use strict';
 
+const path = require('path')
+
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -16,7 +18,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1636859864077_5942';
 
   config.jwt = {
-    secret: "campus-services"
+    secret: "campus-services",
   };
 
   config.mysql = {
@@ -25,14 +27,40 @@ module.exports = appInfo => {
       port: '3306',
       user: 'root',
       password: '123456',
-      database: 'test',
+      database: 'campus-services',
     },
   };
+
+  // file
+  // config.fileLimit = ''
+  config.assetsPath = 'app/public/uploads/'
+
+  config.multipart = {
+    mode: 'stream',
+    // 允许上传的图片格式
+    whitelist: ['.png', '.jpg', '.jpeg'],
+    // fileSize: '50mb',
+    // defaultCharset: "utf-8",
+    // fileExtensions: [
+    //   '.xlsx',
+    //   '.png',
+    //   '.jpg',
+    //   '.jpeg',
+    //   '.svg',
+    //   '.gif',
+    // ],
+  }
 
   // add your middleware config here
   config.middleware = [
     'auth',
   ];
+
+  config.security = {
+    csrf: {
+      enable: false,
+    }
+  }
 
   // add your user config here
   const userConfig = {

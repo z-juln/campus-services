@@ -11,6 +11,7 @@
     "array-bracket-spacing": "off",
     "strict": "off",
     "no-unused-vars": "warn",
-    "no-empty-function": "warn"
+    "no-empty-function": "warn",
+    "brace-style": "warn"
   }
 }

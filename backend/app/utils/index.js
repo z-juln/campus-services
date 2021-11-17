@@ -1,7 +1,14 @@
 "use strcit";
 
-const { createResponseData } = require("./responseData");
+const { createResponseData, lackDataResponse } = require("./responseData");
+const { getToken, getTokenData } = require("./token");
+const { getHashFilename, saveFile } = require('./file')
 
 module.exports = {
-  createResponseData
+  createResponseData,
+  lackDataResponse,
+  getToken,
+  getTokenData,
+  getHashFilename,
+  saveFile,
 }
