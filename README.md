@@ -15,6 +15,12 @@
 - 前端架构说明：<https://qvwk9bpy1e.feishu.cn/docs/doccnYscw1Wkkztx2GDmFqDiMje>
 - 后端架构说明：<https://qvwk9bpy1e.feishu.cn/docs/doccnzfuMd7ZCqTLqdZQbFU2l7d>
 
+#### 相关文档
+
+- 需求及功能文档: <https://qvwk9bpy1e.feishu.cn/docs/doccnFPnRIv1uzE5zTqh6BkHHrc>
+- api文档: <https://qvwk9bpy1e.feishu.cn/docs/doccn7XtBrOGFVdwJDpv98Nyxdb#>
+- 开发流程和任务分工: <https://qvwk9bpy1e.feishu.cn/docs/doccnsQGCroZ1G40suhz8cH3yTf>
+
 ## 安装及运行
 
 1.  安装： 在/frontend下 `npm i`，在/backend下 `npm i`
