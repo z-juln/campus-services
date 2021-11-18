@@ -1,25 +1,59 @@
 'use strict';
 
 const Controller = require('egg').Controller;
-const { createResponseData } = require('../utils')
+const { createResponseData, lackDataResponse, getTokenData, createCaptha } = require('../utils')
 
 class EmailController extends Controller {
-  // TODO
   async send() {
-    const { ctx, app } = this
-    const { service, cookies } = ctx
-    const { config, jwt } = app
-    const { email, content } = ctx.request.body
-
+    const { ctx } = this
+    const { service } = ctx
+    const { email: to, content } = ctx.request.body
+    if(!to || !content) {
+      ctx.body = lackDataResponse
+      return
+    }
+    const { user } = getTokenData(ctx)
+    if(!user.email) {
+      ctx.status = 500
+      return
+    }
+    const from = user.email
+    try {
+      service.email.send(from, to, content)
+    } catch (error) {
+      ctx.status = 500
+      return
+    }
     ctx.body = createResponseData({
       msg: '发布成功'
     })
   }
 
-  // TODO
   async sendCaptcha() {
-    const { ctx } = this;
-    ctx.redirect('/public/index.html')
+    const { ctx } = this
+    const { service } = ctx
+    const { email } = ctx.request.body
+    if(!email) {
+      ctx.body = lackDataResponse
+      return
+    }
+    const { user } = getTokenData(ctx)
+    if(user && user.email) {
+      ctx.body = createResponseData({
+        success: false,
+        msg: "你已登录"
+      })
+    }
+    try {
+      const capctha = createCaptha()
+      service.email.sendCaptcha(email, capctha)
+    } catch (error) {
+      ctx.status = 500
+      return
+    }
+    ctx.body = createResponseData({
+      msg: '验证码已发送'
+    })
   }
 }
 
