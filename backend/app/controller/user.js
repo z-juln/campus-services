@@ -8,13 +8,13 @@ const sendToWormhole = require('stream-wormhole');
 const {
   createResponseData,
   lackDataResponse,
-  getToken,
   getTokenData,
   getHashFilename,
-  saveFile,
 } = require('../utils')
 
-const DEFAULT_IMAGE = '/images/logo.png'
+
+const BASE_UPLOADS_URL = '/public/uploads'
+const DEFAULT_IMAGE = `${BASE_UPLOADS_URL}/logo.png`
 
 class UserController extends Controller {
   async login() {
@@ -175,7 +175,7 @@ class UserController extends Controller {
       ctx.status = 500
       return
     }
-    const ok = service.user.update(user.email, 'avatar', `/images/${filename}`)
+    const ok = service.user.update(user.email, 'avatar', `${BASE_UPLOADS_URL}/${filename}`)
     if(!ok) {
       ctx.status = 500
       return

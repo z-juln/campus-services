@@ -12,7 +12,7 @@ require.interceptors.request.use(
   config => {
     const token = local.get('user')?.token || ''
     if(token) {
-      config.headers.token = token
+      config.headers.authorization = token
     }
     return config
   }

@@ -6,9 +6,9 @@ const sendToWormhole = require('stream-wormhole');
 const getHashFilename = param => {
   const filename = param?.filename || param
   const ext = path.extname(filename).toLocaleLowerCase()
-  const name = filename.replace(`.${ext}`, '')
+  const name = filename.replace(`${ext}`, '')
   const hash = Date.now()
-  return `${name}__${hash}.${ext}`
+  return `${name}__${hash}${ext}`
 }
 
 const saveFile = async (ctx, realFilePath) => {
