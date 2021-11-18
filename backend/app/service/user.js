@@ -37,7 +37,7 @@ class UserService extends Service {
     const res = await this.app.mysql.query(
       'insert into users (email, password, avatar) VALUES(?, ?, ?)',
       [email, password, avatar]
-    );
+    )
     return !!res.affectedRows
   }
 

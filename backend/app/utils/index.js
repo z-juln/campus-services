@@ -5,6 +5,7 @@ const { getToken, getTokenData } = require("./token")
 const { getHashFilename, saveFile } = require('./file')
 const { sendEmail } = require('./email')
 const { createCaptha } = require('./capctha')
+const { parseTimeTable } = require('./timeTable')
 
 module.exports = {
   createResponseData,
@@ -15,4 +16,5 @@ module.exports = {
   saveFile,
   sendEmail,
   createCaptha,
+  parseTimeTable,
 }

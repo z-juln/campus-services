@@ -19,6 +19,8 @@ module.exports = app => {
   router.post('/email/send', jwt, controller.email.send);
   router.post('/email/send-captcha', controller.email.sendCaptcha);
 
-  // auth
-  router.all('/manager', jwt, controller.user.login);
+  // email
+  router.post('/timetable/post', jwt, controller.timetable.add);
+  // router.get('/timetable/find', controller.timetable.find);
+  router.get('/timetable/findall', controller.timetable.findAll);
 };
