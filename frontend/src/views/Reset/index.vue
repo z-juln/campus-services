@@ -95,7 +95,7 @@ export default {
         this.loading = false;
         return;
       }
-      regset({ userName: this.userName, password: MD5(this.password).toString() })
+      regset({ email: this.userName, password: MD5(this.password).toString() })
         .then(res => {
           if (res.status === 200) {
             this.loading = false;
