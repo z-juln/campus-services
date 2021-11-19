@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from 'vue'
 import {
   Button,
   Tabbar,
@@ -7,18 +7,29 @@ import {
   Overlay,
   Divider,
   Uploader, 
-  Icon, 
+  Icon,
   Skeleton,
-  List
+  List,
+  Cell,
+  CellGroup,
+  Field,
+  Col,
+  Row,
+  Checkbox
 } from "vant";
 
 Vue.use(Button)
-  .use(Tabbar)
-  .use(TabbarItem)
-  .use(Icon)
+	.use(Tabbar)
+	.use(TabbarItem)
+	.use(Uploader)
+	.use(Icon)
   .use(Overlay)
+	.use(Skeleton)
+	.use(List)
+	.use(Cell)
+	.use(CellGroup)
+	.use(Field)
+	.use(Col)
+	.use(Row)
+	.use(Checkbox)
   .use(Divider)
-  .use(Uploader)
-  .use(Icon)
-  .use(Skeleton)
-  .use(List)
