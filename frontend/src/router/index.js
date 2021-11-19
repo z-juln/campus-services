@@ -4,22 +4,55 @@ import CommonLayout from "../layout/CommonLayout.vue";
 import Home from "../views/Home/index.vue";
 import About from "../views/About/index.vue";
 import Schedule from "../views/Schedule/index.vue";
+import User from "../views/User/index.vue";
+import Login from "../views/Login/index.vue";
+import Reg from "../views/Reg/index.vue";
+import Test from "../views/Test/index.vue";
+import Reset from "../views/Reset/index.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
+    meta: {
+      fullScreen: true
+    }
+  },
+  {
+    path: "/reg",
+    name: "reg",
+    component: Reg,
+    meta: {
+      fullScreen: true
+    }
+  },
+  {
+    path: "/reset",
+    name: "reset",
+    component: Reset,
+    meta: {
+      fullScreen: true
+    }
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: Test,
+    meta: {
+      fullScreen: true
+    }
+  },
   {
     path: "/",
     component: CommonLayout,
     children: [
       {
-        path: "home",
-        name: "Home",
-        component: Home,
-      },
-      {
-        path: "about",
-        name: "About",
-        component: About,
+        path: "user",
+        name: "User",
+        component: User,
       },
       {
         path:"schedule",

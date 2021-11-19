@@ -6,6 +6,10 @@ import {
   Icon,
   Overlay,
   Divider,
+  Uploader, 
+  Icon, 
+  Skeleton,
+  List
 } from "vant";
 
 Vue.use(Button)
@@ -14,3 +18,7 @@ Vue.use(Button)
   .use(Icon)
   .use(Overlay)
   .use(Divider)
+  .use(Uploader)
+  .use(Icon)
+  .use(Skeleton)
+  .use(List)
