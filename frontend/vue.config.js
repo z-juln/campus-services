@@ -3,7 +3,7 @@ const isDev = ['dev', 'mock'].includes(process.env.NODE_ENV)
 
 module.exports = {
   publicPath: './',
-  outputDir: resolve('../backend/app/public'),
+  outputDir: resolve('../backend/app/public/dist'),
   css: {
     sourceMap: true,
     loaderOptions: {
