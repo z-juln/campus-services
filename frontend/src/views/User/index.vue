@@ -17,7 +17,6 @@
 
         <van-overlay :show="show" z-index="99" @click="show=false" lock-scroll>
           <div class="wrapper" @click.stop>
-            <!-- <div class="block"></div> -->
 						<EditList 
 							v-show="show" 
 							class="EditList" 
