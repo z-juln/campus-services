@@ -25,13 +25,14 @@ export default new Vuex.Store({
   actions: {
     async register({ commit }, info) {
       const res = await REGISTER(info)
-      const { user } = res
+      const { result: user } = res
       commit('setUser', user)
       return user
     },
     async login({ commit }, loginInfo) {
       const res = await LOGIN(loginInfo)
-      const { user } = res
+      const { result: user } = res
+      console.log('user: ', user)
       commit('setUser', user)
       return user
     },

@@ -7,6 +7,7 @@ import Login from "../views/Login/index.vue";
 import Reg from "../views/Reg/index.vue";
 import Test from "../views/Test/index.vue";
 import Reset from "../views/Reset/index.vue";
+import About from '../views/About/index.vue'
 
 Vue.use(VueRouter);
 
@@ -48,6 +49,10 @@ const routes = [
     component: CommonLayout,
     children: [
       {
+        path: "",
+        redirect: "/schedule"
+      },
+      {
         path: "user",
         name: "User",
         component: User,
@@ -56,7 +61,12 @@ const routes = [
         path:"schedule",
         name:"Schedule",
         component: Schedule,
-      }
+      },
+      {
+        path:"about",
+        name:"About",
+        component: About,
+      },
     ],
   },
   {

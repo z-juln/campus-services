@@ -1,7 +1,9 @@
 <template>
   <div>
     <van-uploader :before-read="beforeRead" :after-read="afterRead">
-      <van-button type="primary" class="uploader" ref="picture"></van-button>
+      <van-button type="primary" class="uploader" ref="picture"
+        :style="avatar ? {backgroundImage: `url('${avatar}')`} : ''"
+      ></van-button>
     </van-uploader>
     <div class="info">
       Here is a list of schedule.
@@ -18,6 +20,11 @@ export default {
   data() {
     return {
       file: '',
+    }
+  },
+  computed: {
+    avatar() {
+      return this.$store.state.user?.avatar
     }
   },
   methods: {
