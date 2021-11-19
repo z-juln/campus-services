@@ -2,12 +2,11 @@ import * as axios from "axios";
 import { BASE_URL, MOCK_URL } from '../config/index'
 import { Toast } from "vant";
 import { isMock, local } from ".";
-
 const require = axios.create({
   baseURL: isMock ? MOCK_URL : BASE_URL,
+  // baseURL:'http://42.193.247.131:3000',
   timeout: 5000
 })
-
 require.interceptors.request.use(
   config => {
     const token = local.get('user')?.token || ''
