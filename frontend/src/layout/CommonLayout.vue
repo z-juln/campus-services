@@ -8,9 +8,9 @@
           <img :src="props.active ? icon.active : icon.inactive" />
         </template>
       </van-tabbar-item> -->
+      <van-tabbar-item replace :to="{name: 'Schedule'}" icon="search">课表</van-tabbar-item>
       <van-tabbar-item replace :to="{name: 'User'}" icon="contact">我的</van-tabbar-item>
-      <van-tabbar-item replace :to="{name: 'About'}" icon="search">标签</van-tabbar-item>
-      <van-tabbar-item replace :to="{name: 'About'}" icon="setting-o">标签</van-tabbar-item>
+      <van-tabbar-item replace :to="{name: 'About'}" icon="question-o">其它</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
