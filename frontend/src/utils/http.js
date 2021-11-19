@@ -3,12 +3,13 @@ import axios from 'axios';
 import { Toast } from 'vant';
 import router from '../router';
 
-// 环境的切换
-if (process.env.NODE_ENV == 'development') {
-  axios.defaults.baseURL = '/api';
-} else {
-  axios.defaults.baseURL = '/api';
-}
+// // 环境的切换
+// if (process.env.NODE_ENV == 'development') {
+//   axios.defaults.baseURL = '/api';
+// } else {
+//   axios.defaults.baseURL = '/api';
+// }
+axios.defaults.baseURL = 'http://42.193.247.131:3000/'
 
 // 超时时间
 axios.defaults.timeout = 10000;

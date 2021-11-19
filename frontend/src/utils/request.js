@@ -4,8 +4,7 @@ import { Toast } from "vant";
 import { isMock, local } from ".";
 
 const require = axios.create({
-  baseURL: isMock ? MOCK_URL : BASE_URL,
-  timeout: 5000
+  baseURL: isMock ? MOCK_URL : (process.env.NODE_ENV.indexOf('dev') === 0 ? '/api' : BASE_URL),  timeout: 5000
 })
 
 require.interceptors.request.use(

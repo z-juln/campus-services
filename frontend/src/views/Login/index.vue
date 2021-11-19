@@ -69,7 +69,7 @@ export default {
         this.loading = false;
         return;
       }
-      login({ userName: this.userName, password: MD5(this.password).toString() })
+      login({ email: this.userName, password: MD5(this.password).toString() })
         .then(res => {
           if (res.status === 200) {
             this.loading = false;

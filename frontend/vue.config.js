@@ -34,7 +34,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: './package.json',
+        target: 'http://42.193.247.131:3000/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
