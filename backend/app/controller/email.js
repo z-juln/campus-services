@@ -37,8 +37,8 @@ class EmailController extends Controller {
       ctx.body = lackDataResponse
       return
     }
-    const { user } = getTokenData(ctx)
-    if(user && user.email) {
+    const token = getTokenData(ctx)
+    if(token.user && token.user.email) {
       ctx.body = createResponseData({
         success: false,
         msg: "你已登录"

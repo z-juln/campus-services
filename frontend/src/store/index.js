@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { local } from '../utils'
-import { LOGIN } from '../apis'
+import { LOGIN, REGISTER } from '../apis'
 
 Vue.use(Vuex);
 
@@ -23,11 +23,17 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    register({commit}, loginInfo) {},
-    login({commit}, loginInfo) {
-      LOGIN(loginInfo).then(user => {
-        commit('setUser', user)
-      })
+    async register({ commit }, info) {
+      const res = await REGISTER(info)
+      const { user } = res
+      commit('setUser', user)
+      return user
+    },
+    async login({ commit }, loginInfo) {
+      const res = await LOGIN(loginInfo)
+      const { user } = res
+      commit('setUser', user)
+      return user
     },
     logout() {},
   },

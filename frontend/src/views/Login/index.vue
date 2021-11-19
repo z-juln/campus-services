@@ -31,13 +31,14 @@
 <script>
 import MD5 from 'js-md5';
 import { emailCheck, pwdCheck } from '../../utils/util.js';
-import { login } from '../../apis/index.js';
 import { Toast } from 'vant';
+import { LOGIN } from '../../apis/user.js';
+import store from '../../store/index.js';
 export default {
   data() {
     return {
-      userName: 'test@qq.com',
-      password: 'pwx980101',
+      userName: '',
+      password: '',
       userNameErr: '',
       passwordErr: '',
       loading: false,
@@ -69,29 +70,11 @@ export default {
         this.loading = false;
         return;
       }
-      login({ email: this.userName, password: MD5(this.password).toString() })
-        .then(res => {
-          if (res.status === 200) {
-            this.loading = false;
+      this.$store.dispatch('login', { email: this.userName, password: MD5(this.password).toString() })
+        .then(user => {
             this.$router.push('/');
-            //账号密码存储
-            if (this.checked) {
-              let password = MD5(this.password).toString()
-              localStorage.setItem("password", password)
-              localStorage.setItem("username", this.userName)
-            } else {
-              localStorage.removeItem("password");
-              localStorage.removeItem("userName");
-            }
-          } else {
-            this.loading = false;
-            Toast.fail(res.msg);
-          }
         })
-        .catch(error => {
-          Toast.fail(error);
-          this.loading = false;
-        });
+        .finally(() => this.loading = false)
     },
     reg() {
       this.$router.push('/reg');

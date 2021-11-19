@@ -11,7 +11,7 @@
               <van-field style="vertical-align: bottom" v-model="verificationCode" clearable border placeholder="请输入验证码" :error-message="verificationCodeErr" />
             </van-col>
             <van-col span="10" offset="2">
-              <van-button style="vertical-align: bottom" @click="getCode()"   type="primary" size="small" :loading="loading">{{codeContent}}</van-button>
+              <van-button style="vertical-align: bottom" @click="getCode()" type="primary" size="small" :loading="loading">{{codeContent}}</van-button>
             </van-col>
         </van-row>
         <van-field v-model="password" clearable border type="password" label="密码" placeholder="请输入密码" :error-message="passwordErr" />
@@ -31,10 +31,12 @@
 <script>
 import MD5 from 'js-md5';
 import { emailCheck, pwdCheck } from '../../utils/util';
-import { reg } from '../../apis/index.js';
+import { reg, SEND_CAPTCHA } from '../../apis/index.js';
+import { Toast } from 'vant';
 export default {
   data() {
     return {
+      clock: null,
       userName: '',
       password: '',
       passwordRep: '',
@@ -63,18 +65,20 @@ export default {
       if (!this.canClick) return
       this.canClick = false
       this.codeContent = this.totalTime + 's后重新发送' //这里解决60秒不见了的问题
-      let clock = window.setInterval(() => {
-      this.totalTime--
-      this.codeContent = this.totalTime + 's后重新发送'
-      if (this.totalTime < 0) {     //当倒计时小于0时清除定时器
-        window.clearInterval(clock)
-        this.codeContent = '重新发送验证码'
-        this.totalTime = 60
-        this.canClick = true
-      }
-    },1000)
-
-},
+      SEND_CAPTCHA({email: this.userName})
+        .then(res => {
+          this.clock = setInterval(() => {
+            this.totalTime--
+            this.codeContent = this.totalTime + 's后重新发送'
+            if (this.totalTime < 0) {     //当倒计时小于0时清除定时器
+              window.clearInterval(this.clock)
+              this.codeContent = '重新发送验证码'
+              this.totalTime = 60
+              this.canClick = true
+            }
+          }, 1000)
+        })
+    },
     reg() {
       this.userNameErr = '';
       this.passwordErr = '';
@@ -95,24 +99,16 @@ export default {
         this.loading = false;
         return;
       }
-      reg({ email: this.userName, password: MD5(this.password).toString() })
-        .then(res => {
-          if (res.status === 200) {
-            this.loading = false;
-            Toast.success('跳转登陆界面');
-            setTimeout(() => {
-              Toast.clear();
-              this.$router.push('/login');
-            }, 1000);
-          } else {
-            this.loading = false;
-            Toast.fail(res.msg);
-          }
+      if (!this.verificationCode) {
+        Toast('请输入验证码')
+        this.loading = false;
+        return;
+      }
+      this.$store.dispatch('register', { email: this.userName, password: MD5(this.password).toString(), captcha: this.verificationCode })
+        .then(user => {
+            this.$router.push('/');
         })
-        .catch(error => {
-          Toast.fail(error);
-          this.loading = false;
-        });
+        .finally(() => this.loading = false)
     }
   }
 };
