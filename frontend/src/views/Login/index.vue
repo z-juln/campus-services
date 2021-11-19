@@ -2,18 +2,13 @@
    <transition name="slide">
     <div class="login">
       <div class="title">
-        <h1>Login</h1>
+        <h1>LOGIN</h1>
       </div>
       <van-cell-group class="login-from">
         <van-field v-model="userName" clearable border label="邮箱" placeholder="请输入邮箱" :error-message="userNameErr" />
         <van-field v-model="password" clearable border type="password" label="密码" placeholder="请输入密码" :error-message="passwordErr" />
-        <van-row class="middle-item">
-            <van-col span="11" offset="1">
-              <van-checkbox v-model = "checked">记住我</van-checkbox>
-            </van-col>
-            <van-col span="8" offset="4"><span @click="reset">忘记密码？</span></van-col>
-        </van-row>
-        <van-cell>
+        
+        <van-cell style="border-radius: 1rem;">
           <van-row>
             <van-col span="12" class="btn">
               <van-button type="primary" size="small" @click="login" :loading="loading">登陆</van-button>
@@ -23,6 +18,14 @@
             </van-col>
           </van-row>
         </van-cell>
+
+        <van-row class="middle-item">
+            <van-col span="11" offset="1">
+              <van-checkbox v-model = "checked">记住我</van-checkbox>
+            </van-col>
+            <van-col span="8" offset="4"><span @click="reset">忘记密码？</span></van-col>
+        </van-row>
+
       </van-cell-group>
     </div>
   </transition>
@@ -107,36 +110,30 @@ export default {
     width: 100%;
     height: 100%;
     text-align: center;
-    background-image: url('../../image/bgc.jpg');
+    background-image: url('../../image/bg.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
     position: absolute;
 }
-  
-
 .title {
-    width: 68%;
-    // margin: 30% 0 20% -37%;
+    width: 65%;
     font-size: 28px;
-    margin: 24% 0px;
+    margin: 25% auto 11% ;
     font-weight: 300;
-    color: #003366;
+    color: #f6f7fc9a;
   }
-    
-
 .login-from{
-    width: 80%;
+    width: 70%;
     text-align: center;
     padding: 10px;
     margin: 0 auto;
+    border-radius: 1rem;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
 }
-  
-
 .btn {
     text-align: center;
-    margin-top: 10px;
+    color: #f6f7fcde;
 }
    
 

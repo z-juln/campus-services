@@ -7,10 +7,10 @@
       <van-cell-group class="reg-from">
         <van-field v-model="userName" clearable border label="邮箱" placeholder="请输入邮箱" :error-message="userNameErr" />
         <van-row>
-            <van-col span="12">
+            <van-col span="12" style="margin-left: 0rem;">
               <van-field style="vertical-align: bottom" v-model="verificationCode" clearable border placeholder="请输入验证码" :error-message="verificationCodeErr" />
             </van-col>
-            <van-col span="10" offset="2">
+            <van-col span="10" offset="2" >
               <van-button style="vertical-align: bottom" @click="getCode()"   type="primary" size="small" :loading="loading">{{codeContent}}</van-button>
             </van-col>
         </van-row>
@@ -51,7 +51,6 @@ export default {
   },
   computed: {
      
-   
   },
   methods: {
     getCode() {
@@ -123,28 +122,26 @@ export default {
     width: 100%;
     height: 100%;
     text-align: center;
-    background: url('../../image/bgc.jpg');
+    background-image: url('../../image/bg.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
     position: absolute;
 }
-  
-
-  .title {
-    width: 68%;
-    // margin: 30% 0 20% -37%;
+.title {
+    width: 65%;
     font-size: 28px;
-    margin: 24% 0px;
+    margin: 25% auto 11% ;
     font-weight: 300;
-    color: #003366;
+    color: #f6f7fc9a;
   }
-    
 
 .reg-from {
-    width: 80%;
+    width: 70%;
+    text-align: center;
     padding: 10px;
     margin: 0 auto;
+    border-radius: 1rem;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
 }
   

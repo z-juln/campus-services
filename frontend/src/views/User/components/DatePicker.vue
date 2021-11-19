@@ -14,7 +14,6 @@
       <!-- 日期 -->
       <ul class="days">
         <template v-for="(day, index) in days">
-
           <li
             v-if="day.getMonth() + 1 === currentMonth"
             :key="index"

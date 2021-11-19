@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="add-btn" ref="addBtn">
+		<div class="add-btn" @click="addList" ref="addBtn">
 			<van-icon name="plus" color="white"></van-icon>
 		</div>
 
@@ -10,21 +10,32 @@
 					<Portrait></Portrait>
 				</transition>
 			</div>
-			<div class="body">
-				<DatePicker></DatePicker>
 
-				<!-- <van-skeleton title :row="3" :loading="loading" round> -->
-				<TodoList></TodoList>
-				<!-- </van-skeleton> -->
-			</div>
+			<div class="body">
+        <DatePicker></DatePicker>
+        <TodoList></TodoList>
+
+        <van-overlay :show="show" z-index="99" @click="show=false" lock-scroll>
+          <div class="wrapper" @click.stop>
+            <!-- <div class="block"></div> -->
+						<EditList 
+							v-show="show" 
+							class="EditList" 
+							@overlayChange="getChange"
+						>
+						</EditList>
+          </div>
+				</van-overlay>
+      </div>
 		</div>
-	</div>
+  </div>
 </template>
 
 <script>
 import Portrait from '@/views/User/components/Portrait.vue'
 import DatePicker from '@/views/User/components/DatePicker.vue'
 import TodoList from '@/views/User/components/TodoList.vue'
+import EditList from '@/views/User/components/EditList.vue';
 
 export default {
 	name: 'User',
@@ -34,22 +45,32 @@ export default {
 			today: 0,
 			// avatarURL: "https://www.jianshu.com/u/26a00a9d7e9b",
 			loading: true,
+      show: false,  //改为默认false
+      // isEdit: true, //默认false
 		}
 	},
 	components: {
 		Portrait,
 		DatePicker,
 		TodoList,
+		EditList,
 	},
 	methods: {
 		addBtnClick() {
 			// 可以加个节流
-			if (window.scrollY > 200) {
+			if (window.scrollY > 100) {
 				this.$refs.addBtn.style.opacity = '1'
 			} else {
 				this.$refs.addBtn.style.opacity = '0'
 			}
 		},
+		addList() {
+			//遮罩层
+			this.show = true
+		},
+		getChange() {
+			this.show = false
+		}
 	},
 	watch: {},
 	mounted() {
@@ -61,7 +82,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @headHeight: 30vh;
 * {
 	padding: 0;
@@ -79,15 +100,24 @@ export default {
 		line-height: @headHeight;
 	}
 
-	.body {
-		width: 94%;
-		// height: 100vh - @headHeight;
-		margin: auto;
-		background-color: #ffffffef;
-		border-top-left-radius: 6vh;
-		border-top-right-radius: 6vh;
-		box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.308);
-		z-index: -99;
+  .body {
+    width: 94%;
+    // height: 100vh - @headHeight;
+    margin: auto;
+    background-color: #ffffffef;
+    border-top-left-radius: 6vh;
+    border-top-right-radius: 6vh;
+    box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.308);
+    z-index: -99;
+
+    .EditList {
+      width: 65%;
+      // height: 80%;
+			margin: 35vh auto;
+			border-radius: 3vh;
+			z-index: 999;
+      background-color: rgb(255, 255, 255);
+    }
 	}
 }
 .add-btn {
@@ -107,13 +137,4 @@ export default {
 .add-btn:active {
 	background-color: #414e8d;
 }
-// .slide-fade-enter-active {
-//   transition: all .3s ease;
-// }
-// .slide-fade-leave-active {
-//   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-// }
-// .slide-fade-enter, .slide-fade-leave-to {
-//   transform: translateX(10px); opacity: 0;
-// }
 </style>

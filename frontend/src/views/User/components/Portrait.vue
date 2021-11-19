@@ -1,14 +1,7 @@
 <template>
   <div>
-    <van-uploader 
-      :before-read="beforeRead" 
-      :after-read="afterRead" 
-    >
-      <van-button 
-        type="primary" 
-        class="uploader" 
-        ref="picture"
-      ></van-button>
+    <van-uploader :before-read="beforeRead" :after-read="afterRead">
+      <van-button type="primary" class="uploader" ref="picture"></van-button>
     </van-uploader>
     <div class="info">
       Here is a list of schedule.
@@ -50,24 +43,28 @@ export default {
       });
     },
     afterRead(file) {
-      
+      // localStorage.setItem('user',file)
       // console.log(file.content);
-      const res = require.post('/user/avatar/update formdata', file.content)
-      console.log(res);
-      this.$refs.picture.background = file
+      // const res = require.post('/user/avatar/update formdata', file.content)
+      // console.log(res);
+      // console.log($refs);
+      // this.$refs.picture.background = file
     },
   },
   created() {
-    console.log(store.state.user);
+    // console.log(store.state);
 
-    if(!store.state) {
-      Toast('未登录, 获取头像失败')
-      //todo 跳转登录
-      return
-    }
-    const res = require.post('/user/avatar/update formdata')
-    this.file = res
-    this.$refs.picture.background = file
+    // if(!store.state) {
+    //   Toast('未登录, 获取头像失败')
+    //   //todo 跳转登录
+    //   return
+    // }
+    // const res = require.post('/user/avatar/update formdata')
+    // this.file = res
+    // this.$refs.picture.background = file
+    // if(localStorage.getItem('user')) {
+      // this.$refs.picture.backgroundImage = localStorage.getItem('user')
+    // }
   }
 }
 </script>
