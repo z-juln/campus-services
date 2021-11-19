@@ -31,7 +31,7 @@
 <script>
 import MD5 from 'js-md5';
 import { emailCheck, pwdCheck } from '../../utils/util';
-import { reg, SEND_CAPTCHA } from '../../apis/index.js';
+import { SEND_CAPTCHA } from '../../apis/index.js';
 import { Toast } from 'vant';
 export default {
   data() {
@@ -50,10 +50,6 @@ export default {
       totalTime: 60,
       canClick: true
     };
-  },
-  computed: {
-     
-   
   },
   methods: {
     getCode() {
@@ -119,28 +115,26 @@ export default {
     width: 100%;
     height: 100%;
     text-align: center;
-    background: url('../../image/bgc.jpg');
+    background-image: url('../../image/bg.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
     position: absolute;
 }
-  
-
-  .title {
-    width: 68%;
-    // margin: 30% 0 20% -37%;
+.title {
+    width: 65%;
     font-size: 28px;
-    margin: 24% 0px;
+    margin: 25% auto 11% ;
     font-weight: 300;
-    color: #003366;
+    color: #f6f7fc9a;
   }
-    
 
 .reg-from {
-    width: 80%;
+    width: 70%;
+    text-align: center;
     padding: 10px;
     margin: 0 auto;
+    border-radius: 1rem;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
 }
   

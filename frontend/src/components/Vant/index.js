@@ -14,7 +14,9 @@ import {
   Field,
   Col,
   Row,
-  Checkbox
+  Checkbox,
+	Picker,
+	DatetimePicker
 } from "vant";
 
 Vue.use(Button)
@@ -32,3 +34,6 @@ Vue.use(Button)
 	.use(Row)
 	.use(Checkbox)
   .use(Divider)
+	.use(Picker)
+	.use(Overlay)
+	.use(DatetimePicker)
