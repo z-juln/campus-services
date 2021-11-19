@@ -162,10 +162,14 @@ export default {
   margin-top: 0.3rem;
 }
 .days li {
-  text-align: center;
+  // text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 8px;
   width: 19px;
   height: 19px;
+
 }
 .days li.is-active {
   background: #4b5ebdf5;
