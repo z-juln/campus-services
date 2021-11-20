@@ -9,8 +9,8 @@
         >
           <div 
             class="list-item" 
-            v-for="(value,key,index) in list" 
-            :key="index"
+            v-for="(value, key) in list" 
+            :key="key"
           >
             <van-icon name="label-o" size="4vw"/>
             <h5 style="font-size: 4vw; display: inline-block; margin: 0 0 1vw 4vw">{{value.time}}</h5>
@@ -19,10 +19,12 @@
           </div>
         </van-list>
     </div>
+    <div class="block" style="height: 50px;"></div>
   </div>
 </template>
 
 <script>
+import { getTodoList } from '../utils'
 export default {
   data() {
     return {
@@ -60,11 +62,37 @@ export default {
     }
   },
   props: {
+    day: Number,
     listInfo: {
       time: '--:--',
       theme: '',
       content: '',
     }
+  },
+  computed: {
+    todoList() {
+      const todoList = getTodoList()
+        .filter(todo => {
+          const day = new Date(Date(todo.time)).getDate()
+          return day === this.day
+        })
+        .map(todo => {
+          const { time, title, content } = todo
+          const date = new Date(Date(time))
+          return {
+            day: date.getDate(),
+            time: date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+            title,
+            content,
+          }
+        })
+      console.log('todoList: ', todoList)
+      return todoList
+    },
+  },
+  beforeUpdate() {
+    console.log('getTodoList', this.todoList)
+    this.list = this.todoList
   },
   methods: {
     editList() {
@@ -74,7 +102,7 @@ export default {
       setTimeout(() => {
         this.loading = false;
         this.finished = true;
-      }, 1000);
+      }, 0);
     },
     onRefresh() {
       // 清空列表数据

@@ -12,8 +12,8 @@
       </div>
 
       <div class="body">
-        <DatePicker></DatePicker>
-        <TodoList></TodoList>
+        <DatePicker @change="$event => pickDay = $event"></DatePicker>
+        <TodoList :key="todoListKey + '-' + pickDay" :day="pickDay"></TodoList>
 
         <van-overlay
           :show="show"
@@ -22,7 +22,10 @@
           lock-scroll
         >
           <div class="wrapper" @click.stop>
-            <EditList v-show="show" class="EditList" @overlayChange="getChange">
+            <EditList v-show="show" class="EditList" @overlayChange="getChange"
+              :handleClose="() => show = false"
+              @addTodo="todoListKey += 1"
+            >
             </EditList>
           </div>
         </van-overlay>
@@ -41,6 +44,8 @@ export default {
   name: "User",
   data() {
     return {
+      pickDay: null,
+      todoListKey: 0, // 用于刷新组件使用
       userInfo: "",
       today: 0,
       // avatarURL: "https://www.jianshu.com/u/26a00a9d7e9b",
@@ -56,14 +61,13 @@ export default {
     EditList,
   },
   methods: {
-    addBtnClick() {
-      // 可以加个节流
-      if (window.scrollY > 100) {
-        this.$refs.addBtn.style.opacity = "1";
-      } else {
-        this.$refs.addBtn.style.opacity = "0";
-      }
-    },
+    // addBtnClick() {
+    //   if (window.scrollY > 100) {
+    //     this.$refs.addBtn.style.opacity = "1";
+    //   } else {
+    //     this.$refs.addBtn.style.opacity = "0";
+    //   }
+    // },
     addList() {
       //遮罩层
       this.show = true;
@@ -72,13 +76,12 @@ export default {
       this.show = false;
     },
   },
-  watch: {},
-  mounted() {
-    window.addEventListener("scroll", this.addBtnClick);
-  },
-  destroyed() {
-    window.removeEventListener("scroll", this.addBtnClick);
-  },
+  // mounted() {
+  //   window.addEventListener("scroll", this.addBtnClick);
+  // },
+  // destroyed() {
+  //   window.removeEventListener("scroll", this.addBtnClick);
+  // },
 };
 </script>
 
@@ -91,7 +94,7 @@ export default {
 
 .frame {
   width: 100%;
-  // height: 100vh;
+  min-height: calc( 100vh - 50px );
   background-color: #6979c9;
 
   .head-info {
@@ -102,7 +105,7 @@ export default {
 
   .body {
     width: 94%;
-    // height: 100vh - @headHeight;
+    min-height: calc( 100vh - 50px - @headHeight );
     margin: auto;
     background-color: #ffffffef;
     border-top-left-radius: 6vh;
@@ -111,9 +114,10 @@ export default {
     z-index: -99;
 
     .EditList {
-      width: 65%;
+      width: 80vw;
       // height: 80%;
-      margin: 35vh auto;
+      margin: 50vh auto;
+      transform: translateY(-50%);
       border-radius: 3vh;
       z-index: 999;
       background-color: rgb(255, 255, 255);
@@ -125,7 +129,7 @@ export default {
   top: 80vh;
   left: 84vw;
   z-index: 9;
-  opacity: 0;
+  // opacity: 0;
   background-color: #6979c9;
   height: 6vh;
   width: 6vh;

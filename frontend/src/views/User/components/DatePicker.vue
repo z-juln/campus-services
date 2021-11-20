@@ -79,7 +79,9 @@ export default {
     pick(date) {
       let d = new Date(date);
       this.selectedTime = this.formatDate(d);
-      this.$emit("change", this.formatDate(d, "set"));
+      // this.$emit("change", this.formatDate(d, "set"))
+      const day = d.getDate()
+      this.$emit("change", day);
     },
 
     // 初始化日期
