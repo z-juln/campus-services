@@ -37,12 +37,15 @@ class EmailController extends Controller {
       ctx.body = lackDataResponse
       return
     }
+    const token = getTokenData(ctx)
+    if(token.user && token.user.email) {
+      ctx.body = createResponseData({
+        success: false,
+        msg: "你已登录"
+      })
+    }
     try {
       const capctha = createCaptha()
-      ctx.session = {
-        ...ctx.session,
-        capctha
-      }
       service.email.sendCaptcha(email, capctha)
     } catch (error) {
       ctx.status = 500

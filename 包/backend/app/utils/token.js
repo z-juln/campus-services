@@ -1,5 +1,5 @@
 const getToken = ctx => ctx.headers.authorization
-const getTokenData = ctx => ctx.app.jwt.decode(getToken(ctx)?.slice(7))
+const getTokenData = ctx => ctx.app.jwt.decode(getToken(ctx).slice(7))
 
 exports.getToken = getToken
 exports.getTokenData = getTokenData

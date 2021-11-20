@@ -47,9 +47,9 @@ class UserController extends Controller {
     }
     // 验证码登录
     else if(email && captcha) {
-      const exitsEmail = !!(await ctx.service.user.find(email))
-      const validCaptcha = ctx.session.captcha === captcha
-      if(exitsEmail && validCaptcha) {
+      const validEmial = cookies.get('email') === email
+      const validCaptcha = cookies.get('captcha') === captcha
+      if(validEmial && validCaptcha) {
         const user = await service.user.find(email)
         const token = "Bearer " + jwt.sign(
           { user },
@@ -65,7 +65,7 @@ class UserController extends Controller {
         return
       }
       let errMsg = ''
-      if(!exitsEmail) errMsg = '邮箱错误'
+      if(!validEmial) errMsg = '邮箱错误'
       if(!validCaptcha) errMsg = '验证码错误'
       ctx.body = createResponseData({
         success: false,
@@ -82,27 +82,11 @@ class UserController extends Controller {
     const { service, cookies } = ctx
     const { config, jwt } = app
     const { email, password, captcha } = ctx.request.body
-    const hasEmail = !!(await ctx.service.user.find(email))
-    if(hasEmail) {
-      ctx.body = createResponseData({
-        success: false,
-        msg: "邮箱已注册"
-      })
-      return
-    }
-    const token = getTokenData(ctx)
-    if(token?.user && token.user.email) {
-      ctx.body = createResponseData({
-        success: false,
-        msg: "你已登录"
-      })
-      return
-    }
     if(email && password && captcha) {
-      const exitUser = !!(await service.user.find(email))
-      const validCaptcha = ctx.session.capctha === captcha
+      const user = await service.user.find(email)
+      const validCaptcha = cookies.get('captcha') === captcha
       // 注册成功
-      if(!exitUser && validCaptcha) {
+      if(!user && validCaptcha) {
         const ok = await service.user.add({
           email,
           password,
@@ -111,10 +95,6 @@ class UserController extends Controller {
         if(!ok) {
           ctx.status = 500
           return
-        }
-        const user = {
-          email,
-          avatar: DEFAULT_IMAGE,
         }
         const token = "Bearer " + jwt.sign(
           { user },
@@ -125,12 +105,12 @@ class UserController extends Controller {
             ...user,
             token,
           },
-          msg: "注册成功"
+          msg: "登录成功"
         })
         return
       }
       // 邮箱已注册
-      else if(exitUser) {
+      else if(user) {
         ctx.body = createResponseData({
           success: false,
           msg: "邮箱已注册, 请直接登录"
