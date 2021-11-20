@@ -5,7 +5,19 @@
 		<br />
 		<br />
 		<br />
-		<p v-if="isLogin">你已登录</p>
+		<div v-if="isLogin">
+			<p :style="{textAlign: 'center'}">你已登录</p>
+			<br />
+			<br />
+			<van-button
+				size="small"
+				:style="{padding: '0 40px'}"
+				type="primary"
+				@click="logout"
+			>
+				登出
+			</van-button>
+		</div>
 		<div v-else>
 			<router-link :to="{name: 'login'}">
 				<van-button
@@ -22,9 +34,14 @@
 
 <script>
 export default {
-	data() {
-		return {
-			isLogin: this.$store.state.user?.token
+	computed: {
+		isLogin() {
+			return this.$store.state.user?.token
+		}
+	},
+	methods: {
+		logout() {
+			this.$store.commit('clearUser')
 		}
 	}
 }
