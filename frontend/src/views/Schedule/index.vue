@@ -61,7 +61,7 @@
 			<van-icon name="plus" color="white"></van-icon>
 		</div>
 		<van-overlay :show="showAdd" @click="showAdd = false">
-			<AddCourse :toggle="addClick"></AddCourse>
+			<AddCourse :toggle="addClick" :getCourseData="getCourseData"></AddCourse>
 		</van-overlay>
 	</div>
 </template>
