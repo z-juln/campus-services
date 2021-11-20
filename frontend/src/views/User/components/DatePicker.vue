@@ -145,6 +145,7 @@ export default {
 .date-list {
   width: 80%;
   position: relative;
+  font-size: 16px;
 }
 .weekdays {
   display: flex;
