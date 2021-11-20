@@ -178,11 +178,12 @@ export default {
                 day:this.day,
                 remark:this.type
             }).then((res)=>{
-                
+				this.getCourseData()
+                this.toggle()
             })
         }
 	},
-    props:['toggle'],
+    props:['toggle','getCourseData'],
     mounted() {
     }
 }
@@ -197,8 +198,6 @@ export default {
 	top: 50vh;
 	left: 50vw;
 	transform: translate(-50%, -50%);
-}
-.schedule_add_field {
 }
 .schedule_add_buttons {
 	display: flex;
