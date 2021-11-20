@@ -1,5 +1,8 @@
 <template>
 	<div>
+		<div class="borad">
+			Message Board
+		</div>
 		<div class="content content_loading" ref="content">
 			<div class="scrollBox">
 				<div class="item" v-for="(item, index) in messages" :key="index">
@@ -7,7 +10,7 @@
 					<div class="itemContent">
 						<div class="name">{{ item.name }}</div>
 						<div class="text">{{ item.text }}</div>
-						<div class="time">{{ item.time }}</div>
+						<div class="time">{{ timeFormater(item.time) }}</div>
 					</div>
 				</div>
 			</div>
@@ -21,13 +24,15 @@
 				</div>
 			</div>
 		</div>
+		<Record></Record>
 	</div>
 </template>
 
 <script>
 
-import { supabase} from "../../utils/supabase.js";
-import BetterScroll from 'better-scroll'
+import supabase from "../../utils/supabase.js";
+import BetterScroll from 'better-scroll';
+import Record from './components/record.vue';
 export default {
 	data() {
 		return {
@@ -37,9 +42,10 @@ export default {
 			],
 		}
 	},
+	components: { Record },
 	methods: {
 		getData: async function() {
-			const data = await supabase.from('messages').select()
+			const data = await supabase.from('message').select()
 			this.messages = data.data.sort((a,b)=>{
 			if(a.time > b.time){
 				return -1
@@ -49,7 +55,7 @@ export default {
       	})
 	},
 		timeFormater(value) {
-			// return value.split('-')[1] + '/' + value.split('-')[2].slice(0, 2)
+			return value.split('-')[1] + '/' + value.split('-')[2].slice(0, 2)
 		},
 		scroll() {
 			let warpper = document.querySelector('.content')
@@ -82,10 +88,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.borad {
+	height: 80px;
+	padding-top: 10px;
+	text-align: center;
+	border-bottom: 1px solid #DCDCDC;
+}
 .skeleton {
 	position: absolute;
 	width: 100%;
-  height: 58vh;
+  	height: 58vh;
 	background-color: #fff;
 	top: 100px;
 }
@@ -145,15 +157,19 @@ export default {
 }
 .content_loading {
 	/* display: none; */
+	width: 80%;
 	opacity: 0;
 }
 
 .item {
-	background-color: var(--item_color);
-	border-bottom: 1px solid var(--line_color);
-	width: 100%;
+	// background-color: var(--item_color);
+	// border-bottom: 1px solid var(--line_color);
+	width: 90%;
 	user-select: none;
 	display: flex;
+	margin: 5px auto;
+	border: 1px solid #DCDCDC;
+	border-radius: 25px;
 }
 /* .item:hover {
   background-color: var(--hover_color);
