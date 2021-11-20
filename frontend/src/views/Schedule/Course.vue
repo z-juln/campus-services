@@ -24,7 +24,7 @@ export default {
 		return {
 			show: false,
 			color: '',
-			pubsubToken:'',
+			pubsubToken: '',
 			colors: ['#F6B178', '#68cad6', '#f88568', '#efc065', '#85dcd3'],
 			// colors:['#44cef6','#177cb0','#003472'],
 		}
@@ -69,7 +69,7 @@ export default {
 	},
 	beforeDestroy() {
 		pubsub.unsubscribe(this.pubsubToken) //销毁前取消订阅
-	}
+	},
 }
 </script>
 
@@ -101,7 +101,12 @@ export default {
 	/* 行数太难适配，放弃 */
 	/* display: -webkit-box;
 	text-overflow: ellipsis;
-	-webkit-line-clamp: 3;
+	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical; */
+}
+@media screen and (max-height: 700px) {
+	.schedule_course > div:nth-child(1) {
+		font-size: 12px;
+	}
 }
 </style>
