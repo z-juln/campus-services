@@ -5,17 +5,22 @@
         <h1>Register</h1>
       </div>
       <van-cell-group class="reg-from">
-        <van-field v-model="userName" clearable border label="邮箱" placeholder="请输入邮箱" :error-message="userNameErr" />
+        <van-field v-model="userName" clearable border label-width="4.0em" label="邮箱" placeholder="请输入邮箱" :error-message="userNameErr" />
         <van-row>
-            <van-col span="12">
-              <van-field style="vertical-align: bottom" v-model="verificationCode" clearable border placeholder="请输入验证码" :error-message="verificationCodeErr" />
+            <van-col span="15">
+              <van-field style="vertical-align: bottom" label-width="4.0em" label="验证码"  v-model="verificationCode" clearable border placeholder="请输入验证码" :error-message="verificationCodeErr" />
             </van-col>
-            <van-col span="10" offset="2">
-              <van-button style="vertical-align: bottom" @click="getCode()" type="primary" size="small" :loading="loading">{{codeContent}}</van-button>
+            <van-col span="9">
+              <van-button style="vertical-align: bottom"  @click="getCode()" type="primary" size="small" :loading="loading">{{codeContent}}</van-button>
             </van-col>
         </van-row>
-        <van-field v-model="password" clearable border type="password" label="密码" placeholder="请输入密码" :error-message="passwordErr" />
-        <van-field v-model="passwordRep" clearable border type="password" label="重复密码" placeholder="请再次输入密码" :error-message="passwordRepErr" />
+        <van-field v-model="password" clearable border label-width="4.0em" type="password" label="密码" placeholder="请输入密码" :error-message="passwordErr" />
+        <van-field v-model="passwordRep" clearable border label-width="4.0em" type="password" label="重复密码" placeholder="请再次输入密码" :error-message="passwordRepErr" />
+        <van-row class="middle-item">
+          <van-col span="10" style="font-size:14px;margin-top:10px;" @click="tologin"
+            ><span>已有账号？去登陆</span></van-col
+          >
+        </van-row>
         <van-cell>
           <van-row>
             <van-col span="24" class="btn">
@@ -102,11 +107,15 @@ export default {
       }
       this.$store.dispatch('register', { email: this.userName, password: MD5(this.password).toString(), captcha: this.verificationCode })
         .then(user => {
-            this.$router.push('/');
+            this.$router.push('/login');
         })
         .finally(() => this.loading = false)
+    },
+    tologin() {
+      this.$router.push('/login');
     }
-  }
+  },
+  
 };
 </script>
 
@@ -130,7 +139,7 @@ export default {
   }
 
 .reg-from {
-    width: 70%;
+    width: 75%;
     text-align: center;
     padding: 10px;
     margin: 0 auto;

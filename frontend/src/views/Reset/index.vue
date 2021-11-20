@@ -5,21 +5,24 @@
         <h1>Reset</h1>
       </div>
       <van-cell-group class="regset-from">
-        <van-field v-model="userName" clearable border label="邮箱" placeholder="请输入邮箱" :error-message="userNameErr" />
+        <van-field v-model="userName" clearable border label-width="4.0em" label="邮箱" placeholder="请输入邮箱" :error-message="userNameErr" />
         <van-row>
-            <van-col span="12">
-              <van-field style="vertical-align: bottom" v-model="verificationCode" clearable border placeholder="请输入验证码" :error-message="verificationCodeErr" />
+            <van-col span="15">
+              <van-field style="vertical-align: bottom" label-width="4.0em" label="验证码"  v-model="verificationCode" clearable border placeholder="请输入验证码" :error-message="verificationCodeErr" />
             </van-col>
-            <van-col span="10" offset="2">
-              <van-button style="vertical-align: bottom" @click="getCode()"   type="primary" size="small" :loading="loading">{{codeContent}}</van-button>
+            <van-col span="9"> 
+              <van-button style="vertical-align: bottom"  label-width="4.0em" @click="getCode()" type="primary" size="small" :loading="loading">{{codeContent}}</van-button>
             </van-col>
         </van-row>
-        <van-field v-model="password" clearable border type="password" label="密码" placeholder="请输入密码" :error-message="passwordErr" />
-        <van-field v-model="passwordRep" clearable border type="password" label="重复密码" placeholder="请再次输入密码" :error-message="passwordRepErr" />
+        <van-field v-model="password" clearable border label-width="4.0em" type="password" label="密码" placeholder="请输入密码" :error-message="passwordErr" />
+        <van-field v-model="passwordRep" clearable border label-width="4.0em" type="password" label="重复密码" placeholder="请再次输入密码" :error-message="passwordRepErr" />
         <van-cell>
           <van-row>
-            <van-col span="24" class="btn">
+            <van-col span="10" class="btn">
               <van-button type="primary" size="small" @click="regset" :loading="loading">重置</van-button>
+            </van-col>
+            <van-col span="10" offset="4" class="btn">
+              <van-button size="small" @click="cancel" :loading="loading">取消</van-button>
             </van-col>
           </van-row>
         </van-cell>
@@ -54,6 +57,9 @@ export default {
    
   },
   methods: {
+    cancel() {
+      this.$router.push('/login');
+    },
     getCode() {
       if (!emailCheck(this.userName)) {
         this.userNameErr = '邮箱格式不正确';
@@ -123,7 +129,7 @@ export default {
     width: 100%;
     height: 100%;
     text-align: center;
-    background: url('../../image/bgc.jpg');
+    background: url("../../image/bg.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
@@ -132,20 +138,20 @@ export default {
   
 
   .title {
-    width: 68%;
-    // margin: 30% 0 20% -37%;
+    width: 65%;
     font-size: 28px;
-    margin: 24% 0px;
+    margin: 25% auto 11%;
     font-weight: 300;
-    color: #003366;
+    color: #f6f7fc9a;
   }
     
 
 .regset-from {
-    width: 80%;
+    width: 75%;
     padding: 10px;
     margin: 0 auto;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
 }
   
 

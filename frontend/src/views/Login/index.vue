@@ -131,7 +131,7 @@ export default {
   color: #f6f7fc9a;
 }
 .login-from {
-  width: 70%;
+  width: 75%;
   text-align: center;
   padding: 10px;
   margin: 0 auto;
