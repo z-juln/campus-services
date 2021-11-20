@@ -99,7 +99,8 @@ export default {
           password: MD5(this.password).toString(),
         })
         .then((user) => {
-          this.$router.push("/");
+          const gotoPathName = this.$route.query?.from || '/schedule'
+          this.$router.push(gotoPathName);
         })
         .finally(() => (this.loading = false));
     },
