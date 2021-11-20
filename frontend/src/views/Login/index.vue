@@ -99,7 +99,8 @@ export default {
           password: MD5(this.password).toString(),
         })
         .then((user) => {
-          this.$router.push("/");
+          const gotoPathName = this.$route.query?.from || '/schedule'
+          this.$router.push(gotoPathName);
         })
         .finally(() => (this.loading = false));
     },
@@ -131,7 +132,7 @@ export default {
   color: #f6f7fc9a;
 }
 .login-from {
-  width: 70%;
+  width: 75%;
   text-align: center;
   padding: 10px;
   margin: 0 auto;
