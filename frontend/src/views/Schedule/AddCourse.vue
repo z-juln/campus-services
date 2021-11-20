@@ -138,7 +138,6 @@ export default {
 			this.weeks[0] = value[0]
 			this.weeks[1] = value[1]
             this.showWeeksPicker = false
-            console.log(this.weeks)
 		},
 		setSection(value) {
 			let dayMap = {
@@ -167,7 +166,6 @@ export default {
             this.day = dayMap[value[0]]
             this.section[0] = sectionMap[value[1]]
             this.section[1] = sectionMap[value[2]]
-            console.log(this.day,this.section)
             this.showSectionPicker = false
 		},
         addData() {
@@ -180,9 +178,8 @@ export default {
                 day:this.day,
                 remark:this.type
             }).then((res)=>{
-                console.log(res)
+                
             })
-            // console.log(this.course,this.teacher,this.place,this.section,this.weeks,this.type)
         }
 	},
     props:['toggle'],

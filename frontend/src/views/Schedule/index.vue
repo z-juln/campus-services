@@ -76,7 +76,7 @@ import AddCourse from './AddCourse'
 import pubsub from 'pubsub-js'
 export default {
 	name: 'Schedule',
-	components: { Course, Option, Detail ,AddCourse},
+	components: { Course, Option, Detail, AddCourse },
 	data() {
 		return {
 			showSetting: false,
@@ -107,16 +107,24 @@ export default {
 			this.week = val
 		},
 		getCourseData() {
-			axios
-				.get(
-					'https://mock.mengxuegu.com/mock/61971115d6a32821656502c5/timetable/findall'
-				)
-				.then((res) => {
-					const data = res.data
-					this.startDate = data.startDate
-					this.endDate = data.endDate
-					this.courses = data.courses
+			axios.get('http://42.193.247.131:3000/timetable/findall').then((res) => {
+				const data = res.data
+				data.courses.forEach((item) => {
+					let obj = {
+						id: item.id,
+						course: item.name,
+						teacher: item.teacher,
+						weeks: item.weeks,
+						place: item.place,
+						section: item.section,
+						day: item.day,
+						type: item.remark,
+					}
+					this.courses.push(obj)
 				})
+				console.log('res', data)
+				console.log('courses', this.courses)
+			})
 		},
 	},
 	computed: {
