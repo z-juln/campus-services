@@ -56,6 +56,13 @@
 			</Course>
 		</div>
 		<Detail></Detail>
+
+		<div class="add-btn" ref="addBtn" @click="addClick">
+			<van-icon name="plus" color="white"></van-icon>
+		</div>
+		<van-overlay :show="showAdd" @click="showAdd = false">
+			<AddCourse :toggle="addClick"></AddCourse>
+		</van-overlay>
 	</div>
 </template>
 
@@ -65,70 +72,21 @@ import axios from 'axios'
 import Course from './Course'
 import Option from './Option'
 import Detail from './Detail'
+import AddCourse from './AddCourse'
+import pubsub from 'pubsub-js'
 export default {
 	name: 'Schedule',
-	components: { Course, Option, Detail },
+	components: { Course, Option, Detail ,AddCourse},
 	data() {
 		return {
 			showSetting: false,
 			showDetail: false,
+			showAdd: false,
 			week: 0,
 			days: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
 			startDate: '2021-08-30',
 			endDate: '2022-01-16',
-			courses: [
-			// 	{
-			// 		id: 1,
-			// 		course: '高等数学',
-			// 		teacher: '李明',
-			// 		place: '教2-101',
-			// 		weeks: [2, 18], //周区间
-			// 		day: 1, //周几
-			// 		section: [1, 2],
-			// 		type: 0, // type:0双周 type:1单周 type:2 单双周都上
-			// 	},
-			// 	{
-			// 		id: 2,
-			// 		course: '计算机组成原理',
-			// 		teacher: '王军',
-			// 		place: '教3-203',
-			// 		weeks: [1, 18],
-			// 		day: 2,
-			// 		section: [6, 7],
-			// 		type: 1,
-			// 	},
-			// 	{
-			// 		id: 3,
-			// 		course: 'xxx',
-			// 		teacher: 'xx',
-			// 		place: 'yyyyyy',
-			// 		weeks: [1, 18],
-			// 		day: 3,
-			// 		section: [10, 11],
-			// 		type: 2,
-			// 	},
-			// 	{
-			// 		id: 4,
-			// 		course:
-			// 			'信息论与编码信息论与编码信息论与编码信息论与编码信息论与编码',
-			// 		teacher: '李明',
-			// 		place: '教3-305',
-			// 		weeks: [2, 18], //周区间
-			// 		day: 2, //周几
-			// 		section: [1, 2],
-			// 		type: 2, // type:0双周 type:1单周 type:2 单双周都上
-			// 	},
-			// 	{
-			// 		id: 5,
-			// 		course: '有有有有有有有有有有有有有有有',
-			// 		teacher: '李明',
-			// 		place: '教3-305',
-			// 		weeks: [2, 18], //周区间
-			// 		day: 3, //周几
-			// 		section: [4, 5],
-			// 		type: 2, // type:0双周 type:1单周 type:2 单双周都上
-			// 	},
-			],
+			courses: [],
 		}
 	},
 	methods: {
@@ -136,9 +94,14 @@ export default {
 			this.showSetting = !this.showSetting
 			if (this.showSetting) {
 				this.$refs.divider.style.top = '17.5vh'
+				this.$refs.addBtn.style.opacity = '1'
 			} else {
 				this.$refs.divider.style.top = '7.5vh'
+				this.$refs.addBtn.style.opacity = '0'
 			}
+		},
+		addClick() {
+			this.showAdd = !this.showAdd
 		},
 		setWeek(val) {
 			this.week = val
@@ -180,6 +143,10 @@ export default {
 	mounted() {
 		this.week = dayjs.getWeek(this.startDate, this.currentDate)
 		this.getCourseData()
+	},
+	beforeDestroy() {
+		// 取消刷新颜色的注册事件
+		pubsub.clearAllSubscriptions()
 	},
 }
 </script>
@@ -238,5 +205,21 @@ export default {
 }
 .schedule_sections > div:nth-child(1) {
 	padding-left: 0.8vh;
+}
+.add-btn {
+	position: fixed;
+	top: 80vh;
+	left: 84vw;
+	background-color: #6979c9;
+	height: 6vh;
+	width: 6vh;
+	opacity: 0;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.add-btn:active {
+	background-color: #414e8d;
 }
 </style>

@@ -1,30 +1,32 @@
 import Vue from 'vue'
 import {
-  Button,
-  Tabbar,
-  TabbarItem,
-  Icon,
-  Overlay,
-  Divider,
-  Uploader,
-  Skeleton,
-  List,
-  Cell,
-  CellGroup,
-  Field,
-  Col,
-  Row,
-  Checkbox,
+	Button,
+	Tabbar,
+	TabbarItem,
+	Icon,
+	Overlay,
+	Divider,
+	Uploader,
+	Skeleton,
+	List,
+	Cell,
+	CellGroup,
+	Field,
+	Col,
+	Row,
+	Checkbox,
 	Picker,
-	DatetimePicker
-} from "vant";
+	DatetimePicker,
+	RadioGroup,
+	Radio,
+} from 'vant'
 
 Vue.use(Button)
 	.use(Tabbar)
 	.use(TabbarItem)
 	.use(Uploader)
 	.use(Icon)
-  .use(Overlay)
+	.use(Overlay)
 	.use(Skeleton)
 	.use(List)
 	.use(Cell)
@@ -33,7 +35,9 @@ Vue.use(Button)
 	.use(Col)
 	.use(Row)
 	.use(Checkbox)
-  .use(Divider)
+	.use(Divider)
 	.use(Picker)
 	.use(Overlay)
 	.use(DatetimePicker)
+  .use(RadioGroup)
+  .use(Radio)

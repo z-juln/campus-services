@@ -1,6 +1,6 @@
 <template>
 	<div class="schedule_option">
-		<div>更改周次</div>
+		<div><van-icon name="calendar-o" size="38" color="#8b8b8b" /></div>
 		<div class="schedule_option_container" ref="container">
 			<div class="content" ref="content">
 				<div v-for="i in 20" :key="i" @click="clickWeek($event, i)">
@@ -49,9 +49,8 @@ export default {
 			this.scrollToWeek(val)
 			this.activeWeek(val)
 			this.setWeek(val)
-			pubsub.publish('refreshColor',val)
+			pubsub.publish('refreshColor', val)
 		},
-
 	},
 	mounted() {
 		this.initScroll()
@@ -69,11 +68,13 @@ export default {
 	display: flex;
 }
 .schedule_option > div:nth-child(1) {
-	font-size: 14px;
 	width: 5vh;
 	height: 5vh;
-	margin-top: 2.5vh;
-	padding-left: 0.8vh;
+	margin-top: 2.2vh;
+	padding-left: 0.4vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .schedule_option_container {
 	white-space: nowrap;
