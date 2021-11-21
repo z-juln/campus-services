@@ -2,13 +2,7 @@ import Vue from "vue";
 import store from '../store'
 import VueRouter from "vue-router";
 import CommonLayout from "../layout/CommonLayout.vue";
-import Schedule from "../views/Schedule/index.vue";
-import User from "../views/User/index.vue";
-import Login from "../views/Login/index.vue";
-import Reg from "../views/Reg/index.vue";
 import Test from "../views/Test/index.vue";
-import Reset from "../views/Reset/index.vue";
-import About from '../views/About/index.vue'
 import { Toast } from "vant";
 
 Vue.use(VueRouter);
@@ -17,7 +11,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: Login,
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login'),
     meta: {
       fullScreen: true
     }
@@ -25,7 +19,7 @@ const routes = [
   {
     path: "/reg",
     name: "reg",
-    component: Reg,
+    component: () => import(/* webpackChunkName: "reg" */ '../views/Reg'),
     meta: {
       fullScreen: true
     }
@@ -33,19 +27,19 @@ const routes = [
   {
     path: "/reset",
     name: "reset",
-    component: Reset,
+    component: () => import(/* webpackChunkName: "reset" */ '../views/Reset'),
     meta: {
       fullScreen: true
     }
   },
-  {
+  /* {
     path: "/test",
     name: "test",
     component: Test,
     meta: {
       fullScreen: true
     }
-  },
+  }, */
   {
     path: "/",
     component: CommonLayout,
@@ -57,25 +51,25 @@ const routes = [
       {
         path: "user",
         name: "User",
-        component: User,
+        component: () => import(/* webpackChunkName: "user" */ '../views/User'),
       },
       {
         path:"schedule",
         name:"Schedule",
-        component: Schedule,
+        component: () => import(/* webpackChunkName: "schedule" */ '../views/Schedule'),
       },
       {
         path:"about",
         name:"About",
-        component: About,
+        component: () => import(/* webpackChunkName: "about" */ '../views/About'),
       },
     ],
   },
   {
-    path: "/404",
+    path: "/*",
     name: "NoFound",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/NoFound.vue"),
+      import(/* webpackChunkName: "no-found" */ "../views/NoFound.vue"),
   },
 ];
 
