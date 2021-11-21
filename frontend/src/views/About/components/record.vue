@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import supabase from "../../../utils/supabase.js";
-import { Toast } from 'vant';
+import supabase from '../../../utils/supabase.js'
+import { Toast } from 'vant'
 export default {
 	name: 'Post',
 	data() {
@@ -40,26 +40,26 @@ export default {
 		}
 	},
 	methods: {
-    //加个loading动画
-		postMessage: async function() {
+		//加个loading动画
+		postMessage: async function () {
+			let randomNum = Math.floor(Math.random() * 9 + 1) //生成1到9的随机数
+			this.avatarUrl = await supabase.storage
+				.from('avatars')
+				.getPublicUrl(`${randomNum}.jpg`).publicURL
+			this.userName = this.randomUserName()
 			this.message = this.$refs.message.value
 			this.$refs.message.value = ''
 			this.$refs.message.blur()
-			await supabase
-				.from('message')
-				.insert({
-					name: this.userName,
-					text: this.message,
-					avatar: this.avatarUrl,
-				})
-      		this.$bus.$emit('getData')
-      	},
-	},
-	created() {
-		this.$bus.$on('userInfo', (userName, avatarUrl) => {
-			this.userName = userName
-			this.avatarUrl = avatarUrl
-		})
+			await supabase.from('message').insert({
+				name: this.userName,
+				text: this.message,
+				avatar: this.avatarUrl,
+			})
+			this.$bus.$emit('getData')
+		},
+		randomUserName() {
+			return 'user' + Math.floor(Math.random() * 100 + 1)
+		},
 	},
 }
 </script>
@@ -67,8 +67,7 @@ export default {
 <style scoped>
 #post {
 	height: 150px;
-	background-color:#6979c9;
-	border-radius: 0 0 20px 20px;
+	background-color: #6979c9;
 	position: relative;
 }
 #post textarea {
@@ -87,7 +86,6 @@ export default {
 	position: absolute;
 	outline: none;
 	border: 0px solid #a5bcf5;
-	border-radius: 50%;
 	margin: 0;
 	padding: 0;
 	background-color: var(--button_color);

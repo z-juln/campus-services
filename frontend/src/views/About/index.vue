@@ -97,7 +97,6 @@ export default {
 	color: #fff;
 	border-bottom: 1px solid #DCDCDC;
 	background-color: #6979c9;
-	border-radius: 20px 20px 0 0;
 }
 .skeleton {
 	position: absolute;
