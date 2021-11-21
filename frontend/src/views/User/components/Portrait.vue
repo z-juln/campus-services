@@ -3,6 +3,7 @@
     <van-uploader :before-read="beforeRead" :after-read="afterRead">
       <van-button type="primary" class="uploader" ref="picture"
         :style="avatar ? {backgroundImage: `url('${avatar}')`} : ''"
+        @click="uploadAvatar"
       ></van-button>
     </van-uploader>
     <div class="info">
@@ -15,64 +16,40 @@
 <script>
 import require from "../../../utils/request";
 import store from "../../../store/index.js"
+import { Toast } from 'vant';
+import { LOGIN, UPLOAD_AVATAR } from '../../../apis';
 
 export default {
   data() {
     return {
+      uploadedAvatar: null,
       file: '',
     }
   },
   computed: {
     avatar() {
-      return this.$store.state.user?.avatar
+      return this.uploadedAvatar || this.$store.state.user?.avatar
     }
   },
   methods: {
     beforeRead(file) {
-      if (file.type !== 'image/jpeg') {
-        Toast('请上传 jpg 格式图片');
+      const enableImageTypes = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png']
+      if (!enableImageTypes.includes(file.type)) {
+        Toast('请上传图片');
         return false;
       }
       return true;
     },
-    // 返回 Promise
-    asyncBeforeRead(file) {
-      return new Promise((resolve, reject) => {
-        if (file.type !== 'image/jpeg') {
-          Toast('请上传 jpg 格式图片');
-          reject();
-        } else {
-          let img = new File(['foo'], 'bar.jpg', {
-            type: 'image/jpeg',
-          });
-          resolve(img);
-        }
-      });
-    },
     afterRead(file) {
-      // localStorage.setItem('user',file)
-      // console.log(file.content);
-      // const res = require.post('/user/avatar/update formdata', file.content)
-      // console.log(res);
-      // console.log($refs);
-      // this.$refs.picture.background = file
+      const formData = new FormData()
+      formData.append('avatar', file.file)
+      UPLOAD_AVATAR(formData)
+        .then(res => {
+          this.uploadedAvatar = res.result?.avatar || res?.avatar
+          Toast('上传成功')
+        })
     },
   },
-  created() {
-    // console.log(store.state);
-
-    // if(!store.state) {
-    //   Toast('未登录, 获取头像失败')
-    //   //todo 跳转登录
-    //   return
-    // }
-    // const res = require.post('/user/avatar/update formdata')
-    // this.file = res
-    // this.$refs.picture.background = file
-    // if(localStorage.getItem('user')) {
-      // this.$refs.picture.backgroundImage = localStorage.getItem('user')
-    // }
-  }
 }
 </script>
 

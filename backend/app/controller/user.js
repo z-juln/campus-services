@@ -195,12 +195,16 @@ class UserController extends Controller {
       ctx.status = 500
       return
     }
-    const ok = service.user.update(user.email, 'avatar', `${BASE_UPLOADS_URL}/${filename}`)
+    const resultPath = `${BASE_UPLOADS_URL}/${filename}`
+    const ok = service.user.update(user.email, 'avatar', resultPath)
     if(!ok) {
       ctx.status = 500
       return
     }
     ctx.body = createResponseData({
+      data: {
+        avatar: resultPath
+      },
       msg: '修改成功'
     })
     return

@@ -30,6 +30,7 @@ export default new Vuex.Store({
       return user
     },
     async login({ commit }, loginInfo) {
+      console.log('loginInfo: ', loginInfo)
       const res = await LOGIN(loginInfo)
       const { result: user } = res
       console.log('user: ', user)
