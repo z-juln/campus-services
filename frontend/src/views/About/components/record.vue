@@ -1,10 +1,10 @@
 <template>
 	<div id="post">
-		<!-- <textarea ref="message" @keydown.enter="postMessage"></textarea> -->
+		<textarea ref="message" @keydown.enter="postMessage"></textarea>
 		<button @click="postMessage">
 			<img src="../../../assets/image/发送.svg" width="30" height="30" />
 		</button>
-		<van-cell-group inset class="liuyan">
+		<!-- <van-cell-group inset class="liuyan">
 			<van-field
 				ref="message"
 				rows="2"
@@ -16,7 +16,7 @@
 				show-word-limit
 				@keydown.enter="postMessage"
 		/>
-		</van-cell-group>
+		</van-cell-group> -->
 		<!-- <van-field
 			v-model="value1"
 			label="文本"
@@ -48,12 +48,12 @@ export default {
 			await supabase
 				.from('message')
 				.insert({
-						name: this.userName,
-						text: this.message,
-						avatar: this.avatarUrl,
-					})
-			this.$bus.$emit('getData')
-	    },
+					name: this.userName,
+					text: this.message,
+					avatar: this.avatarUrl,
+				})
+      		this.$bus.$emit('getData')
+      	},
 	},
 	created() {
 		this.$bus.$on('userInfo', (userName, avatarUrl) => {
@@ -67,14 +67,14 @@ export default {
 <style scoped>
 #post {
 	height: 150px;
-	background-color:#AEF1E7;
+	background-color:#6979c9;
 	border-radius: 0 0 20px 20px;
 	position: relative;
 }
-#post .liuyan {
+#post textarea {
 	position: absolute;
 	top: 30%;
-	left: 46%;
+	left: 50%;
 	transform: translate(-50%, -50%);
 	resize: none;
 	outline: none;
