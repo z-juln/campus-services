@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="borad">
-			Message Board
+			留 言 墙
 		</div>
 		<div class="content content_loading" ref="content">
 			<div class="scrollBox">
@@ -92,7 +92,12 @@ export default {
 	height: 80px;
 	padding-top: 10px;
 	text-align: center;
+	font-size: 35px;
+	width: 100%;
+	color: #fff;
 	border-bottom: 1px solid #DCDCDC;
+	background-color: #AEF1E7;
+	border-radius: 20px 20px 0 0;
 }
 .skeleton {
 	position: absolute;
@@ -152,13 +157,14 @@ export default {
 	height: 58vh;
 	overflow: hidden;
 	position: relative;
-	background-color: #fff;
+	background-color: #F7F8FA;
 	z-index: 10;
 }
 .content_loading {
 	/* display: none; */
 	width: 80%;
 	opacity: 0;
+	
 }
 
 .item {
@@ -168,7 +174,8 @@ export default {
 	user-select: none;
 	display: flex;
 	margin: 5px auto;
-	border: 1px solid #DCDCDC;
+	background-color: #fff;
+	border: 1px solid #fff;
 	border-radius: 25px;
 }
 /* .item:hover {
@@ -197,7 +204,8 @@ export default {
 }
 .text {
 	width: 80%;
-	margin-left: 4%;
+	margin-left: 10%;
+	font-size: 17px;
 	margin-top: 14px;
 	margin-bottom: 14px;
 	color: var(--text_color);

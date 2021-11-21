@@ -2,7 +2,7 @@
 	<div id="post">
 		<!-- <textarea ref="message" @keydown.enter="postMessage"></textarea> -->
 		<button @click="postMessage">
-			<img src="../../../assets/发送.svg" width="30" height="30" />
+			<img src="../../../assets/image/发送.svg" width="30" height="30" />
 		</button>
 		<van-cell-group inset class="liuyan">
 			<van-field
@@ -43,21 +43,16 @@ export default {
     //加个loading动画
 		postMessage: async function() {
 			this.message = this.$refs.message.value
-			if (this.message) {
-				this.$refs.message.value = ''
-				this.$refs.message.blur()
-					await supabase
-						.from('message')
-						.insert({
-							name: this.userName,
-							text: this.message,
-							avatar: this.avatarUrl,
-						})
-				this.$bus.$emit('getData')
-			} else {
-				Toast.fail('请输入内容');
-			}
-			
+			this.$refs.message.value = ''
+			this.$refs.message.blur()
+			await supabase
+				.from('message')
+				.insert({
+						name: this.userName,
+						text: this.message,
+						avatar: this.avatarUrl,
+					})
+			this.$bus.$emit('getData')
 	    },
 	},
 	created() {
@@ -72,8 +67,8 @@ export default {
 <style scoped>
 #post {
 	height: 150px;
-	background-color: var(--item_color);
-	border-radius: 0 0 30px 30px;
+	background-color:#AEF1E7;
+	border-radius: 0 0 20px 20px;
 	position: relative;
 }
 #post .liuyan {
